@@ -8,9 +8,9 @@ exports.up = function(knex, Promise) {
         .inTable('sleep_pool')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
-      tbl.integer('sleeptime');
-      tbl.integer('waketime');
-      tbl.integer('qos_score');
+      tbl.integer('sleeptime').notNullable();
+      tbl.integer('waketime').notNullable();
+      tbl.integer('qos_score').notNullable();
     });
   };
   
