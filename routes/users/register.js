@@ -5,12 +5,16 @@ const bcrypt = require("bcryptjs");
 
 const { authenticate, generateToken } = require("../../auth/authenticate");
 
-router.post("/register", authenticate, (req, res) => {
+router.get("/", (req, res) => {
+  res.send("Register API works.");
+});
+
+router.post("/", (req, res) => {
   const creds = req.body;
   db("users")
     .insert(creds)
     .then(id => {
-      const token = generateToken(user);
+      const token = generateToken(creds);
       res.status(201).json({
         id: id[0],
         message: "Registered successfully",
