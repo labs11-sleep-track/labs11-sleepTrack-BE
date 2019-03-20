@@ -13,7 +13,9 @@ server.use(express.json());
 server.use("/api", routes);
 
 server.get("/", (req, res) => {
-  res.send("Sleepsta");
+  res.status(200).json({
+    message: "Sleepsta"
+  });
 });
 
 module.exports = server;
