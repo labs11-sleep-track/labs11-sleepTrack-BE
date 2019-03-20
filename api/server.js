@@ -4,8 +4,6 @@ const helmet = require("helmet");
 
 const server = express();
 
-// const routes = require("../config/configRoutes");
-
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
