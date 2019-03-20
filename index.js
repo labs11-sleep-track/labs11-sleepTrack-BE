@@ -2,11 +2,6 @@ require("dotenv").config();
 
 const server = require("./api/server");
 
-// GET
-server.get("/", (req, res) => {
-  res.send("It's alive!");
-});
-
 const port = process.env.PORT || 4000;
 
 if (!module.parent) {
