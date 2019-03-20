@@ -1,28 +1,19 @@
-require('dotenv').config()
+require("dotenv").config();
 
-const express = require('express')
-const helmet = require('helmet')
-const cors = require('cors')
-
-const server = express()
-
-server.use(helmet())
-server.use(express.json())
-server.use(cors())
+const server = require("./api/server");
 
 // GET
-server.get('/', (req, res) => {
-    res.send("It's alive!")
-  })
+server.get("/", (req, res) => {
+  res.send("It's alive!");
+});
 
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 4000;
 
 if (!module.parent) {
-  server.listen(port, () => console.log(`\n** Running on port ${port} **\n`))
+  server.listen(port, () => console.log(`\n** Running on port ${port} **\n`));
 }
 
-module.exports = server
-
+module.exports = server;
 
 // ******** Depending on server.js file: ********
 
@@ -30,6 +21,3 @@ module.exports = server
 
 // const port = process.env.PORT || 4000;
 // server.listen(port, () => console.log(`\n** Running on port ${port} **\n`));
-
-
-
