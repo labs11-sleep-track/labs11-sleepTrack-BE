@@ -24,4 +24,31 @@ router.get("/:id", authenticate, (req, res) => {
     .catch(err => console.log(err));
 });
 
+// For updating user's info
+// Requires headers - token, id, req.body
+router.put("/:id", authenticate, async (req, res) => {
+  if (req.params.id === req.headers.id) {
+    let changes = req.body;
+
+    for (x in changes) {
+      // try {
+      if (x != "token") {
+        await db("users")
+          .where({
+            id: req.params.id
+          })
+          .update(`${x}`, `${changes[x]}`);
+      }
+      // }
+    }
+    res.status(200).json({
+      message: "Profile successfully updated."
+    });
+  } else {
+    res.status(401).json({
+      message: "Unauthorized access."
+    });
+  }
+});
+
 module.exports = router;
