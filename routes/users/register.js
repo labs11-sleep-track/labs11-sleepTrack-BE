@@ -5,10 +5,12 @@ const bcrypt = require("bcryptjs");
 
 const { authenticate, generateToken } = require("../../auth/authenticate");
 
-router.get("/", (req, res) => {
-  res.send("Register API works.");
-});
+// Testing API on postman
+// router.get("/", (req, res) => {
+//   res.send("Register API works.");
+// });
 
+// Register EP, able to acces APP with token after registering
 router.post("/", (req, res) => {
   const creds = req.body;
   db("users")
