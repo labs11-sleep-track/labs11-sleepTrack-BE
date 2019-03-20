@@ -7,6 +7,7 @@ const { authenticate, generateToken } = require("../../auth/authenticate");
 
 router.post("/register", authenticate, (req, res) => {
   const creds = req.body;
+  console.log(creds);
   db("users")
     .insert(creds)
     .then(id => {

@@ -4,6 +4,7 @@ const express = require("express");
 // const dailyRouter = require("../routes/daily_data");
 // const storyRouter = require("../routes/story_pools");
 const regRouter = require("../routes/users/register");
+const loginRouter = require("../routes/users/login");
 
 const router = express.Router();
 
@@ -11,6 +12,9 @@ const router = express.Router();
 // router.use("/daily", dailyRouter);
 // router.use("/story", storyRouter);
 router.use("/register", regRouter);
+router.use("/login", loginRouter);
+
+
 
 router.get("/", (req, res) => {
   res.send("API works.");
