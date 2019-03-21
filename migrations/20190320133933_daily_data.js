@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
       tbl
         .integer('user_id')
         .unsigned()
-        .references('user_id')
+        .references('pool_id')
         .inTable('sleep_pool')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');

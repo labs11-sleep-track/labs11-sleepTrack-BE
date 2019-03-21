@@ -9,6 +9,8 @@ module.exports = {
   generateToken
 };
 
+// TODO IMPORT HELPER FUNCTIONS BELOW FOR AUTH
+
 // implementation details
 function authenticate(req, res, next) {
   const token = req.get("Authorization");
