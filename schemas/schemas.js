@@ -22,4 +22,15 @@ const registerSchema = {
     .required()
 };
 
-module.exports = { registerSchema };
+const loginSchema = {
+  email: Joi.string()
+    .email({ minDomainAtoms: 2 })
+    .max(64)
+    .required(),
+
+  password: Joi.string()
+    .min(6)
+    .max(64)
+    .required()
+};
+module.exports = { registerSchema, loginSchema };
