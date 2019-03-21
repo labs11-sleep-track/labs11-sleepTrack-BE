@@ -2,7 +2,7 @@ exports.up = function(knex, Promise) {
     return knex.schema.createTable('sleep_pool', tbl => {
       tbl.increments('id');
       tbl
-        .integer('user_id')
+        .integer('pool_id')
         .unsigned()
         .references('id')
         .inTable('users')

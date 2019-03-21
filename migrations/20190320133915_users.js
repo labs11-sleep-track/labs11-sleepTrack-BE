@@ -8,7 +8,7 @@ exports.up = function(knex, Promise) {
       tbl.string('password', 64).notNullable();
       tbl.string('f_name', 64).notNullable();
       tbl.string('l_name', 64).notNullable();
-      tbl.string('account_type', 32).notNullable();
+      tbl.string('account_type', 32).defaultTo('user');
     });
   };
   
