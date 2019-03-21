@@ -23,7 +23,7 @@
     "supertest": "^4.0.2"
   },
   "scripts": {
-    "test": "jest --watch --verbose --runInBand",
+    "test": "cross-env DB_ENV=testing jest --watch --verbose --runInBand",
     "start": "node index.js",
     "server": "nodemon index.js"
   },
