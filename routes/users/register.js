@@ -13,6 +13,7 @@ const { authenticate, generateToken } = require("../../auth/authenticate");
 // Register EP, able to acces APP with token after registering
 router.post("/", (req, res) => {
   const creds = req.body;
+  console.log(creds);
   db("users")
     .insert(creds)
     .then(id => {
