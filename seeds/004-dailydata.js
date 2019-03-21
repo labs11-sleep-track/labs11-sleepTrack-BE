@@ -18,7 +18,6 @@ for(var i = 0; i < 125; i++){
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
   return knex('daily_data')
-    .del()
     .then(function() {
       // Inserts seed entries
       return knex('daily_data').insert(curArr);
