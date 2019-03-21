@@ -25,29 +25,24 @@ router.get("/:id", authenticate, (req, res) => {
 });
 
 // For updating user's info
-// Requires headers - token, id, req.body
-router.put("/:id", authenticate, async (req, res) => {
-  if (req.params.id === req.headers.id) {
-    let changes = req.body;
+// Requires headers - token, id; and req.body
+router.put("/", authenticate, async (req, res) => {
+  let changes = req.body;
 
-    for (x in changes) {
-      // try {
-      if (x != "token") {
-        await db("users")
-          .where({
-            id: req.params.id
-          })
-          .update(`${x}`, `${changes[x]}`);
-      }
-      // }
-    }
-    res.status(200).json({
-      message: "Profile successfully updated."
-    });
-  } else {
-    res.status(401).json({
-      message: "Unauthorized access."
-    });
+  for (x in changes) {
+    await db("users")
+      .where("id", "=", changes.id)
+      .update(`${x}`, `${changes[x]}`)
+      .then(res => {
+        res.status(200).json({
+          message: "Profile successfully updated."
+        });
+      })
+      .catch(err => {
+        res.status(401).json({
+          message: "Unauthorized access."
+        });
+      });
   }
 });
 
