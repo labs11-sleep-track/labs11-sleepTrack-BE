@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
     } else {
       const hash = await bcrypt.hashSync(value.password, 14);
 
-      const [id] = await db("users").insert({ ...value, password: hash, "id" });
+      const [id] = await db("users").insert({ ...value, password: hash }, "id");
       const user = await db("users")
         .where({ id })
         .first();
