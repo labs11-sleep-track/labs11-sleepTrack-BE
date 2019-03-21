@@ -5,6 +5,13 @@ module.exports = {
     client: "sqlite3",
     connection: {
       filename: "./database/sleepstaDB.sqlite3"
+    },
+    useNullAsDefault: true,
+    migrations: {
+      directory: "./migrations"
+    },
+    seeds: {
+      directory: "./seeds"
     }
   },
 
@@ -13,6 +20,7 @@ module.exports = {
     connection: {
       filename: "database/test/db3"
     },
+    useNullAsDefault: true,
     migrations: {
       directory: "./migrations"
     },
@@ -23,11 +31,8 @@ module.exports = {
 
   production: {
     client: "pg",
-    connection: {
-      database: "my_db",
-      user: "username",
-      password: "password"
-    },
+    debug: process.env.DEBUG_DB === "true",
+    connection: process.env.DATABASE_URL,
     migrations: {
       directory: "./migrations"
     },
