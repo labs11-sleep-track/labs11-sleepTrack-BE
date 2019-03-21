@@ -12,8 +12,7 @@ server.use(helmet());
 server.use(cors());
 server.use(express.json());
 
-server.use("/register", registerRouter);
-server.use("/api", registerRouter);
+server.use("/api", routes);
 
 server.get("/", async (req, res) => {
   res.status(200).json("Sleepsta");
