@@ -46,8 +46,10 @@ Example of what to use:
 {
     email: "lambda@testemail.com",
     password: "testpassword",
-    first_name: "testfirstname"
-    last_name: "testlastname"
+    f_name: "testfirstname"
+    l_name: "testlastname",
+    "account_type": "test"
+
 }
 ```
 ---
