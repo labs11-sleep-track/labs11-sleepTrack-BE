@@ -11,7 +11,7 @@ for(var i = 0; i < 125; i++){
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('sleep_pool').del()
+  return knex('sleep_pool')
     .then(function () {
       // Inserts seed entries
       return knex('sleep_pool').insert(curArr);
