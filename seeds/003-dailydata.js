@@ -2,7 +2,7 @@ var faker = require('faker');
 
 var curArr = [];
 
-for(var i = 0; i < 125; i++){
+for(var i = 1; i < 126; i++){
 	var sleeptime = faker.random.number();
 	var waketime = faker.random.number();
 	var qos = faker.random.number();
