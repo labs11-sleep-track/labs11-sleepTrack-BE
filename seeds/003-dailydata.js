@@ -3,8 +3,8 @@ var faker = require('faker');
 var curArr = [];
 
 for(var i = 0; i < 125; i++){
-	var sleeptime = faker.date.recent();
-	var waketime = faker.date.recent();
+	var sleeptime = faker.random.number();
+	var waketime = faker.random.number();
 	var qos = faker.random.number();
 	
 	curArr.push({
