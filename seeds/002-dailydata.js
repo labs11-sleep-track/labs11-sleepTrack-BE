@@ -11,7 +11,7 @@ for(var i = 0; i < 125; i++){
 		sleeptime: sleeptime,
 		waketime: waketime,
 		qos_score: qos,
-		pool_id: 1
+		user_id: i
 })
 }
 
