@@ -1,5 +1,3 @@
-const registerRouter = require('../config/configRoutes')
-
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
