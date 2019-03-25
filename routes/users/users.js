@@ -26,29 +26,23 @@ router.get("/:id", authenticate, (req, res) => {
 
 // For updating user's info
 // Requires headers - token, id; and req.body
-router.put("/", authenticate, async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
-    let changes = req.body;
+    const count = await db("users")
+      .where({ id: req.params.id })
+      .update(req.body);
 
-    for (x in changes) {
-      await db("users")
-        .where("id", "=", changes.id)
-        .update(`${x}`, `${changes[x]}`)
-        .then(res => {
-          res.status(200).json({
-            message: "Profile successfully updated."
-          });
-        })
-        .catch(err => {
-          res.status(401).json({
-            message: "Unable to update profile."
-          });
-        });
+    if (count > 0) {
+      const user = await db("users")
+        .where({ id: req.params.id })
+        .first();
+
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({ error: "user not found" });
     }
-  } catch {
-    res.status(401).json({
-      message: "Unauthorized access."
-    });
+  } catch (error) {
+    res.status(500).json(error);
   }
 });
 
