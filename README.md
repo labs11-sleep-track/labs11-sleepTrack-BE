@@ -133,7 +133,7 @@ Parameters:
 
 Method used: **[PUT]** `api/daily/:id/`
 
-On Success: Returns updated array.
+On Success: Returns the updated array. 
 
 
 Parameters:
