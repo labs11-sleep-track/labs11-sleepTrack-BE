@@ -12,9 +12,9 @@ router.get("/", async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { sleeptime, waketime, qos_score } = req.body
-  if (!sleeptime || !waketime || !qos_score) {
-      res.status(404).json({ message: 'Adding daily data requires a sleeptime, waketime and qos_score.' })
+  const { user_id, sleeptime, waketime, qos_score } = req.body
+  if (!user_id || !sleeptime || !waketime || !qos_score) {
+      res.status(404).json({ message: 'Adding daily data requires a user id, sleeptime, waketime and qos_score.' })
   }
   try {
       const dailyData = await db('daily_data').insert(req.body)
