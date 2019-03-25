@@ -6,6 +6,8 @@ const usersRouter = require("../routes/users/users");
 const regRouter = require("../routes/users/register");
 const loginRouter = require("../routes/users/login");
 
+const articleRouter = require("../routes/articles/index");
+
 const router = express.Router();
 
 router.use("/users", usersRouter);
@@ -13,6 +15,7 @@ router.use("/users", usersRouter);
 // router.use("/story", storyRouter);
 router.use("/register", regRouter);
 router.use("/login", loginRouter);
+router.use("/articles", articleRouter);
 
 
 
