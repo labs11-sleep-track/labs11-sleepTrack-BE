@@ -128,3 +128,22 @@ Parameters:
 |      qos_score   |  integer |    yes   |                                             |
 
 ---
+
+### Update Daily Data
+
+Method used: **[PUT]** `api/daily/:id/`
+
+On Success: Returns updated array.
+
+
+Parameters:
+
+|        Name      |   Type   | Required |                   Notes                     |
+|------------------|----------|----------|---------------------------------------------|
+|   Authorization  |**Header**|    yes   | Acquired from a successful login.           |
+|       user_id    |  integer |    yes   |The id of the user the data is being saved to|
+|      sleeptime   |  integer |    yes   |The time the user went to sleep.             |
+|      waketime    |  integer |    yes   |The time the user woke up from sleeping.     |
+|      qos_score   |  integer |    yes   |                                             |
+
+---
