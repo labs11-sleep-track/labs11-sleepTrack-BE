@@ -95,3 +95,55 @@ Parameters:
 
 ---
 
+### Get List of all Daily Data
+
+Method used: **[GET]** `/api/daily/`
+
+On Success: Returns an array of all daily data in database.
+
+
+Parameters:
+
+|      Name     |   Type   | Required |              Notes                |
+|---------------|----------|----------|-----------------------------------|
+| Authorization |**Header**|   yes    | Acquired from a successful login. |
+
+---
+
+### Post Daily Data
+
+Method used: **[POST]** `/api/daily/`
+
+On Success: Adds new daily data to the database.
+
+
+Parameters:
+
+|        Name      |   Type   | Required |                   Notes                     |
+|------------------|----------|----------|---------------------------------------------|
+|   Authorization  |**Header**|    yes   | Acquired from a successful login.           |
+|       user_id    |  integer |    yes   |The id of the user the data is being saved to|
+|      sleeptime   |  integer |    yes   |The time the user went to sleep.             |
+|      waketime    |  integer |    yes   |The time the user woke up from sleeping.     |
+|      qos_score   |  integer |    yes   |                                             |
+
+---
+
+### Update Daily Data
+
+Method used: **[PUT]** `api/daily/:id/`
+
+On Success: Returns the updated array. 
+
+
+Parameters:
+
+|        Name      |   Type   | Required |                   Notes                     |
+|------------------|----------|----------|---------------------------------------------|
+|   Authorization  |**Header**|    yes   | Acquired from a successful login.           |
+|       user_id    |  integer |    yes   |The id of the user the data is being saved to|
+|      sleeptime   |  integer |    yes   |The time the user went to sleep.             |
+|      waketime    |  integer |    yes   |The time the user woke up from sleeping.     |
+|      qos_score   |  integer |    yes   |                                             |
+
+---
