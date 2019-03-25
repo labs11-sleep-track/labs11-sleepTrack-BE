@@ -46,8 +46,10 @@ Example of what to use:
 {
     email: "lambda@testemail.com",
     password: "testpassword",
-    first_name: "testfirstname"
-    last_name: "testlastname"
+    f_name: "testfirstname"
+    l_name: "testlastname",
+    "account_type": "test"
+
 }
 ```
 ---
@@ -75,6 +77,21 @@ Example of what to use:
     password: "testpassword"
 }
 ```
+
+---
+
+### Get Users
+
+Method used: **[GET]** `/api/users/`
+
+On Success: Returns an array of users.
+
+
+Parameters:
+
+|      Name     |   Type   | Required |              Notes                |
+|---------------|----------|----------|-----------------------------------|
+| Authorization |**Header**|   yes    | Acquired from a successful login. |
 
 ---
 
