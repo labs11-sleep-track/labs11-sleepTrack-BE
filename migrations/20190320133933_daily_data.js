@@ -3,10 +3,10 @@ exports.up = function(knex, Promise) {
     tbl.increments("id");
 
     tbl
-      .integer("pool_id")
+      .integer("user_id")
       .unsigned()
       .references("id")
-      .inTable("sleep_pool")
+      .inTable("users")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
 
