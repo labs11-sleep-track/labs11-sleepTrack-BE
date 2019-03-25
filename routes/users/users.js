@@ -27,22 +27,28 @@ router.get("/:id", authenticate, (req, res) => {
 // For updating user's info
 // Requires headers - token, id; and req.body
 router.put("/", authenticate, async (req, res) => {
-  let changes = req.body;
+  try {
+    let changes = req.body;
 
-  for (x in changes) {
-    await db("users")
-      .where("id", "=", changes.id)
-      .update(`${x}`, `${changes[x]}`)
-      .then(res => {
-        res.status(200).json({
-          message: "Profile successfully updated."
+    for (x in changes) {
+      await db("users")
+        .where("id", "=", changes.id)
+        .update(`${x}`, `${changes[x]}`)
+        .then(res => {
+          res.status(200).json({
+            message: "Profile successfully updated."
+          });
+        })
+        .catch(err => {
+          res.status(401).json({
+            message: "Unable to update profile."
+          });
         });
-      })
-      .catch(err => {
-        res.status(401).json({
-          message: "Unauthorized access."
-        });
-      });
+    }
+  } catch {
+    res.status(401).json({
+      message: "Unauthorized access."
+    });
   }
 });
 
