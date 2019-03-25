@@ -80,3 +80,18 @@ Example of what to use:
 
 ---
 
+### Get Users
+
+Method used: **[GET]** `/api/users/`
+
+On Success: Returns an array of users.
+
+
+Parameters:
+
+|      Name     |   Type   | Required |              Notes                |
+|---------------|----------|----------|-----------------------------------|
+| Authorization |**Header**|   yes    | Acquired from a successful login. |
+
+---
+
