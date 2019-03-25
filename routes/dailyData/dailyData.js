@@ -13,6 +13,19 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post('/', async (req, res) => {
+  const { user_id, sleeptime, waketime, qos_score } = req.body
+  if (!user_id || !sleeptime || !waketime || !qos_score) {
+      res.status(404).json({ message: 'Adding daily data requires a user id, sleeptime, waketime and qos_score.' })
+  }
+  try {
+      const dailyData = await db('daily_data').insert(req.body)
+      res.status(201).json(dailyData)
+  } catch (error) {
+      res.status(500).json({ error: 'Daily data information could not be retrieved.' })
+  }
+})
+
 router.put("/:id", async (req, res) => {
   try {
     const count = await db("daily_data")
