@@ -64,3 +64,4 @@ typings/
 .vscode/
 
 #Sqlite3 file
+database/sleepstaDB.sqlite3
