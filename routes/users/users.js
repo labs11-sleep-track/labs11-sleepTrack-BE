@@ -16,6 +16,19 @@ router.get("/", (req, res) => {
     .catch(err => console.log(err));
 });
 
+router.get("/me", authenticate, async (req, res) => {
+  try {
+    const user = await db("users")
+      .where({ id: req.decoded.subject })
+      .first();
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+});
+
 // For get a user's info, e.g. profile page
 router.get("/:id", authenticate, (req, res) => {
   db("users")
@@ -42,6 +55,7 @@ router.put("/:id", async (req, res) => {
       res.status(404).json({ error: "user not found" });
     }
   } catch (error) {
+    console.log(error);
     res.status(500).json(error);
   }
 });
