@@ -9,10 +9,3 @@ if (!module.parent) {
 }
 
 module.exports = server;
-
-// ******** Depending on server.js file: ********
-
-// const server = require('./api/server'); // Not sure file structure here
-
-// const port = process.env.PORT || 4000;
-// server.listen(port, () => console.log(`\n** Running on port ${port} **\n`));
