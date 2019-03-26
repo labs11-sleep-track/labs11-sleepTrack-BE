@@ -46,4 +46,15 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+router.delete('/:id', async (req, res) => {
+  try {
+      const count = await db('daily_data').where({ 'id': req.params.id }).del()
+      count > 0
+          ? res.status(200).json(count)
+          : res.status(404).json({ message: 'Daily data with that ID could not be found.' })
+  } catch (err) {
+      res.status(500).json({ error: 'The daily data could not be deleted.' })
+  }
+})
+
 module.exports = router;
