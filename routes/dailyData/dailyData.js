@@ -13,18 +13,35 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
-  const { user_id, sleeptime, waketime, qos_score } = req.body
+// get list of sleep data for specific user
+router.get("/user/:id", async (req, res) => {
+  try {
+    const dailyData = await db("daily_data").where({ user_id: req.params.id });
+    res.status(200).json(dailyData);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "could not fetch daily data for that user" });
+  }
+});
+
+router.post("/", async (req, res) => {
+  const { user_id, sleeptime, waketime, qos_score } = req.body;
   if (!user_id || !sleeptime || !waketime || !qos_score) {
-      res.status(404).json({ message: 'Adding daily data requires a user id, sleeptime, waketime and qos_score.' })
+    res.status(404).json({
+      message:
+        "Adding daily data requires a user id, sleeptime, waketime and qos_score."
+    });
   }
   try {
-      const dailyData = await db('daily_data').insert(req.body)
-      res.status(201).json(dailyData)
+    const dailyData = await db("daily_data").insert(req.body);
+    res.status(201).json(dailyData);
   } catch (error) {
-      res.status(500).json({ error: 'Daily data information could not be retrieved.' })
+    res
+      .status(500)
+      .json({ error: "Daily data information could not be retrieved." });
   }
-})
+});
 
 router.put("/:id", async (req, res) => {
   try {
@@ -46,15 +63,19 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
-      const count = await db('daily_data').where({ 'id': req.params.id }).del()
-      count > 0
-          ? res.status(200).json(count)
-          : res.status(404).json({ message: 'Daily data with that ID could not be found.' })
+    const count = await db("daily_data")
+      .where({ id: req.params.id })
+      .del();
+    count > 0
+      ? res.status(200).json(count)
+      : res
+          .status(404)
+          .json({ message: "Daily data with that ID could not be found." });
   } catch (err) {
-      res.status(500).json({ error: 'The daily data could not be deleted.' })
+    res.status(500).json({ error: "The daily data could not be deleted." });
   }
-})
+});
 
 module.exports = router;
