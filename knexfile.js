@@ -8,10 +8,10 @@ module.exports = {
     },
     useNullAsDefault: true,
     migrations: {
-      directory: "./migrations"
+      directory: "./database/migrations"
     },
     seeds: {
-      directory: "./seeds"
+      directory: "./database/seeds"
     }
   },
 
@@ -22,10 +22,10 @@ module.exports = {
     },
     useNullAsDefault: true,
     migrations: {
-      directory: "./migrations"
+      directory: "./database/migrations"
     },
     seeds: {
-      directory: "./seeds"
+      directory: "./database/seeds"
     }
   },
 
@@ -34,10 +34,10 @@ module.exports = {
     debug: process.env.DEBUG_DB === "true",
     connection: process.env.DATABASE_URL,
     migrations: {
-      directory: "./migrations"
+      directory: "./database/migrations"
     },
     seeds: {
-      directory: "./seeds"
+      directory: "./database/seeds"
     }
   }
 };
