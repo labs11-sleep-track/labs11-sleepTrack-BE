@@ -2,6 +2,7 @@ const router = require("express").Router();
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const db = require("../../database/dbConfig");
+const { generateToken } = require("../../auth/authenticate");
 
 router.use(passport.initialize());
 
@@ -75,8 +76,8 @@ router.get(
 // callback route for google to redirect to
 // hand control to passport to use code to grab profile info
 router.get("/redirect", passport.authenticate("google"), (req, res) => {
-  // res.send(req.user);
-  res.redirect(process.env.GOOGLE_REDIRECT_URL);
+  const token = generateToken(req.user);
+  res.redirect(`${process.env.GOOGLE_REDIRECT_URL}/${token}`);
 });
 
 module.exports = router;
