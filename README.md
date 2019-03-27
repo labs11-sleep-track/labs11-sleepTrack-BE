@@ -147,3 +147,18 @@ Parameters:
 |      qos_score   |  integer |    yes   |                                             |
 
 ---
+
+### Delete Daily Data
+
+Method used: **[DELETE]** `//api/daily/:id`
+
+On Success: Deletes data from database.
+
+
+Parameters:
+
+|      Name     |   Type   | Required |                   Notes                     |
+|---------------|----------|----------|---------------------------------------------|
+| Authorization |**Header**|    yes   | Acquired from a successful login.           |
+
+---
