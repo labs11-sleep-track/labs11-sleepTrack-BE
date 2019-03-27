@@ -7,6 +7,7 @@ const regRouter = require("../routes/users/register");
 const loginRouter = require("../routes/users/login");
 
 const articleRouter = require("../routes/articles/index");
+const stripeRouter = require("../routes/stripe/stripe");
 
 const router = express.Router();
 
@@ -16,6 +17,7 @@ router.use("/daily", dailyRouter);
 router.use("/register", regRouter);
 router.use("/login", loginRouter);
 router.use("/articles", articleRouter);
+router.use("/stripe", stripeRouter);
 
 router.get("/", (req, res) => {
   res.send("API works.");
