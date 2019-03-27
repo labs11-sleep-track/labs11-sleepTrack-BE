@@ -29,7 +29,7 @@ passport.use(
       // options for google strategy
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: process.env.GOOGLE_CALLBACK_URL
+      callbackURL: process.env.GOOGLE_STRATEGY_CALLBACK_URL
     },
     async (accessToken, refreshToken, profile, done) => {
       //passport callback function
@@ -86,6 +86,8 @@ router.post("/tokenSignIn", async (req, res) => {
       audience: process.env.IOS_CLIENT_ID // Specify the CLIENT_ID of the app that accesses the backend
     });
     const payload = ticket.getPayload();
+    console.log(payload);
+
     const userid = payload.sub;
 
     const user = await db("users")
