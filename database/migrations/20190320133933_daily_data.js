@@ -13,6 +13,7 @@ exports.up = function(knex, Promise) {
     tbl.integer("sleeptime").notNullable();
     tbl.integer("waketime").notNullable();
     tbl.integer("qos_score").notNullable();
+    tbl.json("night_data");
     tbl.text("sleep_notes");
   });
 };
