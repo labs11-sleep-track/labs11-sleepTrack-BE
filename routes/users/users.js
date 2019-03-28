@@ -34,7 +34,7 @@ router.get("/:id", authenticate, (req, res) => {
 
 // For updating user's info
 // Requires headers - token, id; and req.body
-router.put("/:id", async (req, res) => {
+router.put("/:id", authenticate, async (req, res) => {
   try {
     const count = await db("users")
       .where({ id: req.params.id })
