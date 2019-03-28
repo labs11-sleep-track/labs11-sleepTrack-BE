@@ -8,4 +8,11 @@ router.get("/", (req, res) => {
       .catch(err => console.log(err));
   });
 
+router.get("/:id", (req, res) => {
+    db("articles")
+      .where("id", "=", req.params.id)
+      .then(article => res.status(200).send(article))
+      .catch(err => console.log(err));
+  });
+
 module.exports = router;
