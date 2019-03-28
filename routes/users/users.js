@@ -2,12 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../database/dbConfig");
 
-const { authenticate, generateToken } = require("../../auth/authenticate");
-
-// Testing API on postman
-// router.get("/", (req, res) => {
-//   res.send("Users API works.");
-// });
+const { authenticate } = require("../../auth/authenticate");
 
 // For back-end testing purposes only
 router.get("/", (req, res) => {
@@ -39,7 +34,7 @@ router.get("/:id", authenticate, (req, res) => {
 
 // For updating user's info
 // Requires headers - token, id; and req.body
-router.put("/:id", async (req, res) => {
+router.put("/:id", authenticate, async (req, res) => {
   try {
     const count = await db("users")
       .where({ id: req.params.id })
