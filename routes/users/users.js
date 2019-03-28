@@ -2,12 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../database/dbConfig");
 
-const { authenticate, generateToken } = require("../../auth/authenticate");
-
-// Testing API on postman
-// router.get("/", (req, res) => {
-//   res.send("Users API works.");
-// });
+const { authenticate } = require("../../auth/authenticate");
 
 // For back-end testing purposes only
 router.get("/", (req, res) => {

@@ -10,12 +10,6 @@ router.use("/users", usersRoute);
 const dailyRoute = require("../routes/dailyData/dailyData");
 router.use("/daily", dailyRoute);
 
-//auth routes
-// const regRoute = require("../routes/users/register");
-// const loginRoute = require("../routes/users/login");
-// router.use("/register", regRoute);
-// router.use("/login", loginRoute);
-
 //routes for articles on dashboard and etc
 const articleRoute = require("../routes/articles/index");
 router.use("/articles", articleRoute);
