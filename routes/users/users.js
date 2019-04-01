@@ -11,6 +11,7 @@ router.get("/", (req, res) => {
     .catch(err => console.log(err));
 });
 
+// getting current user by id
 router.get("/me", authenticate, async (req, res) => {
   try {
     const user = await db("users")
