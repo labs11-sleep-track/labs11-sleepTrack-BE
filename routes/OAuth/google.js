@@ -4,6 +4,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const db = require("../../database/dbConfig");
 const { generateToken } = require("../../auth/authenticate");
 const { OAuth2Client } = require("google-auth-library");
+const { generateDailyDataSeed } = require("./seed");
 
 router.use(passport.initialize());
 
@@ -53,6 +54,8 @@ passport.use(
           const newUser = await db("users")
             .where({ id })
             .first();
+
+          await generateDailyDataSeed(newUser);
           done(null, newUser);
         }
       } catch (error) {
@@ -110,6 +113,9 @@ router.post("/tokenSignIn", async (req, res) => {
       const newUser = await db("users")
         .where({ id })
         .first();
+
+      await generateDailyDataSeed(newUser);
+
       const token = generateToken(newUser);
       res.status(200).json({ user: newUser, token });
     }
