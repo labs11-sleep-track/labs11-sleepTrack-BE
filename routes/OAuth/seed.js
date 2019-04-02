@@ -18,29 +18,40 @@ async function generateDailyDataSeed(user) {
       .subtract(i, "day")
       .toDate();
 
-    const sleepTime = new Date(
-      2019,
-      yesterday.getMonth(),
-      yesterday.getDate(),
-      sleepTimeHour,
-      sleepTimeMinutes
-    ).getTime();
+    const sleepTime =
+      new Date(
+        2019,
+        yesterday.getMonth(),
+        yesterday.getDate(),
+        sleepTimeHour,
+        sleepTimeMinutes
+      ).getTime() / 1000;
 
-    const wakeTime = new Date(
-      2019,
-      yesterday.getMonth(),
-      yesterday.getDate() + 1,
-      wakeTimeHour,
-      wakeTimeMinutes
-    ).getTime();
+    const wakeTime =
+      new Date(
+        2019,
+        yesterday.getMonth(),
+        yesterday.getDate() + 1,
+        wakeTimeHour,
+        wakeTimeMinutes
+      ).getTime() / 1000;
 
     const qos = faker.random.number({ min: 60, max: 100 });
+
+    const nightData = [];
+    for (let j = sleepTime; j < wakeTime; j += 600) {
+      nightData.push({
+        motion: faker.random.number({ min: 1, max: 9 }) + Math.random(),
+        timestamp: j
+      });
+    }
 
     await db("daily_data").insert({
       sleeptime: sleepTime,
       waketime: wakeTime,
       qos_score: qos,
-      user_id: user.id
+      user_id: user.id,
+      night_data: JSON.stringify(nightData)
     });
   }
 }
