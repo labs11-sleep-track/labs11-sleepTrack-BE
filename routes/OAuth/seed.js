@@ -36,13 +36,13 @@ async function generateDailyDataSeed(user) {
         wakeTimeMinutes
       ).getTime() / 1000;
 
-    const qos = faker.random.number({ min: 60, max: 100 });
+    const qos = faker.random.number({ min: 70, max: 100 });
 
     const nightData = [];
     for (let j = sleepTime; j < wakeTime; j += 600) {
       nightData.push({
-        motion: faker.random.number({ min: 1, max: 9 }) + Math.random(),
-        timestamp: j
+        y: faker.random.number({ min: 1, max: 9 }) + Math.random(),
+        x: j
       });
     }
 
