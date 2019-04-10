@@ -18,46 +18,28 @@ https://sleepsta.herokuapp.com/
 
 | Method |     Endpoint          |                   Requires                   |                                Description                                       |
 |--------|-----------------------|----------------------------------------------|----------------------------------------------------------------------------------|
-|  POST  |   `/api/register/`    |            `email`, `password`               | Used for adding a new user to database.                                          |
+|  GET   |          `/`          |                  `email`                     | Used to log a user in. Returns a token to be used to authenticate the user.      |
+|  GET   |    `/redirect`        |                  `email`                     | Redirects to hand control to passport to use code to grab profile information.   |
+|  POST  |    `/tokenSignIn`     |                  `email`                     | Verifies idToken from IOS app.                                                   |
 |  POST  |   `/api/login/`       |            `email`, `password`               | Used to log a user in. Returns a token and the user's name in its body.          |
+|  GET   |    `/api/users/`      |              Successful Login                | Used to show all users in the database.                                          |
 |  GET   |   `/api/users/:id/`   |              Successful Login                | Used to show a specific user in the database.                                    |
+|  GET   |   `/api/users/me/`    |              Successful Login                | Used to get current user by ID.                                                  |
+|  GET   |    `/api/daily/`      |              Successful Login                | Used to get list of all daily data in database.                                  |
+|  POST  |    `/api/daily/`      |              Successful Login                | Adds new daily data to the database.                                             |
+|  PUT   |  `/api/daily/:id/`    |              Successful Login                | Updates daily data in database by ID.                                            |
+| DELETE |  `/api/daily/:id/`    |              Successful Login                | Deletes daily data in database by ID.                                            |
+|  GET   |  `/api/articles/`     |              Successful Login                | Used to show all artices in database.                                            |
+|  GET   | `/api/articles/:id`   |              Successful Login                | Used to show article in database by ID.                                          |
+|  GET   |     `/api/stripe`     |              Successful Login                | Used to show amount due and payment option.                                      |
+|  POST  | `/api/stripe/charge`  |              Successful Login                | Used to charge user's card for premium account.                                  |
 ---
 
-### User Registration
+
+### Initiate Google Auth
 
 
-Method used: **[POST]** `/api/register/`
-
-On Success: 
-Returns the Id of the new user.
-
-
-Parameters:
-
-|   Name    | Type | Required |                      Notes                       |
-|-----------|------|----------|--------------------------------------------------|
-|   email   |string|    yes   |The email the user wishes to use. Must be unique. |
-| password  |string|    yes   |Can be up to 64 characters in length.             | 
-| first_name|string|    yes   |Can be up to 64 characters in length.             | 
-| last_name |string|    yes   |Can be up to 64 characters in length.             | 
-
-Example of what to use: 
-```
-{
-    email: "lambda@testemail.com",
-    password: "testpassword",
-    f_name: "testfirstname"
-    l_name: "testlastname",
-    "account_type": "test"
-
-}
-```
----
-
-### User Login
-
-
-Method used: **[POST]** `/api/login/`
+Method used: **[GET]** `/`
 
 On Success: 
 Returns a token to be used to authenticate the user.
@@ -68,23 +50,77 @@ Parameters:
 |  Name  | Type | Required |
 |--------|------|----------|
 |  email |string|    yes   |
-|password|string|    yes   |
 
 Example of what to use: 
 ```
 {
-    email: "lambda@testemail.com",
-    password: "testpassword"
+    email: "testemail@gmail.com",
 }
 ```
 
 ---
 
-### Get Users
+### Callback route for Google 
+
+
+Method used: **[GET]** `/redirect`
+
+On Success: 
+Redirects to hand control to passport to use code to grab profile information.
+
+
+Parameters:
+
+|  Name  | Type | Required |
+|--------|------|----------|
+|  email |string|    yes   |
+
+Example of what to use: 
+```
+{
+    email: "testemail@gmail.com",
+}
+```
+
+---
+
+### Verify idToken from IOS app
+
+
+Method used: **[POST]** `/tokenSignIn`
+
+On Success: 
+Verifies idToken from IOS app. 
+
+
+Parameters:
+
+|   Name    | Type  | Required |
+|-----------|-------|----------|
+| google_id |integer|    yes   |
+|  f_name   |string |    yes   |
+|  l_name   |string |    yes   |
+|   email   |string |    yes   |
+
+
+Example of what to use: 
+```
+{
+    google_id: "userid",
+    f_name: "testname",
+    l_name: "testname",
+    email: "testemail@gmail.com",
+}
+```
+
+---
+
+
+### GET Users
 
 Method used: **[GET]** `/api/users/`
 
-On Success: Returns an array of users.
+On Success: Returns an array of users. For back-end testing purposes only.
 
 
 Parameters:
@@ -95,7 +131,22 @@ Parameters:
 
 ---
 
-### Get List of all Daily Data
+### GET Current User by ID
+
+Method used: **[GET]** `/api/users/me`
+
+On Success: Returns the current user by id.
+
+
+Parameters:
+
+|      Name     |   Type   | Required |              Notes                |
+|---------------|----------|----------|-----------------------------------|
+| Authorization |**Header**|   yes    | Acquired from a successful login. |
+
+---
+
+### GET List of all Daily Data
 
 Method used: **[GET]** `/api/daily/`
 
@@ -110,7 +161,7 @@ Parameters:
 
 ---
 
-### Post Daily Data
+### POST Daily Data
 
 Method used: **[POST]** `/api/daily/`
 
@@ -129,7 +180,7 @@ Parameters:
 
 ---
 
-### Update Daily Data
+### UPDATE Daily Data
 
 Method used: **[PUT]** `api/daily/:id/`
 
@@ -150,7 +201,7 @@ Parameters:
 
 ### Delete Daily Data
 
-Method used: **[DELETE]** `//api/daily/:id`
+Method used: **[DELETE]** `/api/daily/:id`
 
 On Success: Deletes data from database.
 
@@ -160,5 +211,71 @@ Parameters:
 |      Name     |   Type   | Required |                   Notes                     |
 |---------------|----------|----------|---------------------------------------------|
 | Authorization |**Header**|    yes   | Acquired from a successful login.           |
+
+---
+
+---
+
+### GET List of all Articles
+
+Method used: **[GET]** `/api/articles/`
+
+On Success: Returns an array of all articles in database.
+
+
+Parameters:
+
+|      Name     |   Type   | Required |              Notes                |
+|---------------|----------|----------|-----------------------------------|
+| Authorization |**Header**|   yes    | Acquired from a successful login. |
+
+---
+
+### GET Article by ID
+
+Method used: **[GET]** `/api/articles/:id`
+
+On Success: Returns an array of article in database for specific id.
+
+
+Parameters:
+
+|      Name     |   Type   | Required |              Notes                |
+|---------------|----------|----------|-----------------------------------|
+| Authorization |**Header**|   yes    | Acquired from a successful login. |
+
+---
+
+### GET Stripe
+
+Method used: **[GET]** `/api/stripe/`
+
+On Success: Returns amount due and payment option to upgrade user to a premuim account.
+
+
+Parameters:
+
+|      Name     |   Type   | Required |              Notes                |
+|---------------|----------|----------|-----------------------------------|
+| Authorization |**Header**|   yes    | Acquired from a successful login. |
+
+---
+
+### POST Stripe
+
+Method used: **[POST]** `/api/stripe/charge`
+
+On Success: Charges payment successfully to user's card to upgrade to a premuim account.
+
+
+Parameters:
+
+|      Name     |   Type   | Required |              Notes                |
+|---------------|----------|----------|-----------------------------------|
+| Authorization |**Header**|   yes    | Acquired from a successful login. |
+|     email     |   string |   yes    | The email used for user's account.|
+|  card number  |  integer |   yes    | Card number user wishes to use.   |
+|     mm//yy    |  integer |   yes    | Expiration date on user's card.   |
+|      cvc      |  integer |   yes    | CVC code on user's card.          |
 
 ---
