@@ -34,8 +34,26 @@ router.post("/", async (req, res) => {
     });
   }
   try {
-    const dailyData = await db("daily_data").insert(req.body);
-    res.status(201).json(dailyData);
+    const sleeptimeDate = new Date(sleeptime * 1000);
+    const userData = await db("daily_data").where({ user_id });
+
+    const existingSleeptime = userData.find(data => {
+      const userDataSleeptime = new Date(data.sleeptime * 1000);
+      return (
+        userDataSleeptime.getDate() === sleeptimeDate.getDate() &&
+        userDataSleeptime.getMonth() === sleeptimeDate.getMonth() &&
+        userDataSleeptime.getFullYear() === sleeptimeDate.getFullYear()
+      );
+    });
+
+    if (existingSleeptime) {
+      res
+        .status(400)
+        .json({ message: "Sleep entry for this day already exist." });
+    } else {
+      const dailyData = await db("daily_data").insert(req.body);
+      res.status(201).json(dailyData);
+    }
   } catch (error) {
     res
       .status(500)
