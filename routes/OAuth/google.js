@@ -39,9 +39,11 @@ passport.use(
           .where({ google_id: profile.id })
           .first();
 
+        //checking for user in db
         if (user) {
           done(null, user);
         } else {
+          // adding new user to db
           const [id] = await db("users").insert(
             {
               google_id: profile.id,
@@ -55,6 +57,7 @@ passport.use(
             .where({ id })
             .first();
 
+          // generating seed for new user for last 31 days
           await generateDailyDataSeed(newUser);
           done(null, newUser);
         }
@@ -97,10 +100,13 @@ router.post("/tokenSignIn", async (req, res) => {
       .where({ google_id: userid })
       .first();
 
+    // checking for user in db
     if (user) {
       const token = generateToken(user);
+      //sending back user and token to IOS app
       res.json({ user, token });
     } else {
+      // adding new user to db
       const [id] = await db("users").insert(
         {
           google_id: userid,
@@ -114,9 +120,11 @@ router.post("/tokenSignIn", async (req, res) => {
         .where({ id })
         .first();
 
+      // generating seed for new user for last 31 days
       await generateDailyDataSeed(newUser);
 
       const token = generateToken(newUser);
+      //sending back user and token to IOS app
       res.status(200).json({ user: newUser, token });
     }
   } catch (error) {

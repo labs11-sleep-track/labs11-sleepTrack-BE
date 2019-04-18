@@ -4,6 +4,7 @@ const db = require("../../database/dbConfig");
 
 const { authenticate, generateToken } = require("../../auth/authenticate");
 
+// get all sleep data
 router.get("/", async (req, res) => {
   try {
     const dailyData = await db("daily_data");
@@ -25,6 +26,7 @@ router.get("/user/:id", async (req, res) => {
   }
 });
 
+// add new sleep data from IOS
 router.post("/", async (req, res) => {
   const { user_id, sleeptime, waketime, qos_score } = req.body;
   if (!user_id || !sleeptime || !waketime || !qos_score) {
@@ -34,9 +36,13 @@ router.post("/", async (req, res) => {
     });
   }
   try {
+    // converting sleeptime of a new entry into a date
     const sleeptimeDate = new Date(sleeptime * 1000);
+
+    // getting all sleep data for that specific user
     const userData = await db("daily_data").where({ user_id });
 
+    // finding sleeptime into db that matches the date, month, and year of new sleeptime entry
     const existingSleeptime = userData.find(data => {
       const userDataSleeptime = new Date(data.sleeptime * 1000);
       return (
@@ -46,11 +52,13 @@ router.post("/", async (req, res) => {
       );
     });
 
+    // prevent adding new entry into the db if entry for that day already exist
     if (existingSleeptime) {
       res
         .status(400)
         .json({ message: "Sleep entry for this day already exist." });
     } else {
+      // if entry for that day doesn't exist then add new entry into db
       const dailyData = await db("daily_data").insert(req.body);
       res.status(201).json(dailyData);
     }
@@ -61,6 +69,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+// update sleep data by id
 router.put("/:id", async (req, res) => {
   try {
     const count = await db("daily_data")
@@ -81,6 +90,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+// delete sleep data by id
 router.delete("/:id", async (req, res) => {
   try {
     const count = await db("daily_data")
